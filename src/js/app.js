@@ -32,7 +32,7 @@
 let map
 let infowindow
 
-function initMap () {
+const initMap =()=>{
   navigator.geolocation.getCurrentPosition(function (pos) {
     lat = pos.coords.latitude
     lon = pos.coords.longitude
@@ -104,7 +104,7 @@ function initMap () {
 
   })
 }
-function crearMarcador (place) {
+const crearMarcador =(place)=> {
   // Creamos un marcador
   var marker = new google.maps.Marker({
     map: map,
