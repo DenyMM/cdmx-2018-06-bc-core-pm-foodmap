@@ -1,10 +1,20 @@
-body  {
-    background-image: url("../images/Dish1.png");
-    background-color: #cccccc;
-    background-repeat: no-repeat;
+h1{
+font-family: 'Comfortaa', cursive;
+  color: #E08C12
 }
-
-body: {
-  background-image: url("../images/Dish2.png");
+div{
+      background-image: url("../images/dish.gif");
+      background-position: center;
+      background-position: bottom;
+      background-position:top;
+      background-size:contain;
+      background-repeat:space;
+      background-repeat: no-repeat;
+      padding-left: 90px;
+      padding-top: 90px;
+      padding-right: 200px;
+      padding-bottom: 200px;
+      margin-top: 200px;
+      size: 400px, 400px, 400px, 400px;
 
 }
