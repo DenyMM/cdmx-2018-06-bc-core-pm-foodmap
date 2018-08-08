@@ -12,9 +12,9 @@ const initMap =()=>{
     lat = pos.coords.latitude
     lon = pos.coords.longitude
 
-    var myLatlng = new google.maps.LatLng(lat, lon)
+    let myLatlng = new google.maps.LatLng(lat, lon)
 
-    var mapOptions = {
+    let mapOptions = {
       center: myLatlng,
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.MAPA
@@ -50,7 +50,7 @@ const initMap =()=>{
 
     service.nearbySearch(restaurant, function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i])
           RestaurantData = results
          console.log(RestaurantData)
@@ -60,7 +60,7 @@ const initMap =()=>{
     })
     service.nearbySearch(cafe, function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i])
           CafeData = results
          console.log(CafeData)
@@ -70,7 +70,7 @@ const initMap =()=>{
     })
     service.nearbySearch(bakery, function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i])
           BakeryData = results
          console.log(BakeryData)
@@ -80,7 +80,7 @@ const initMap =()=>{
     })
     service.nearbySearch(bar, function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i])
           BarData = results
          console.log(BarData)
@@ -93,7 +93,7 @@ const initMap =()=>{
 }
 const crearMarcador =(place)=> {
   // Creamos un marcador
-  var marker = new google.maps.Marker({
+  let marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location
   })
