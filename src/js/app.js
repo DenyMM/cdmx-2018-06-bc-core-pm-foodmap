@@ -1,36 +1,11 @@
-/*function initMap() {
- // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar.
- var map = new google.maps.Map(document.getElementById('mapa'), {
- center: {lat: 43.2686751, lng: -2.9340005},
- scrollwheel: false,
- zoom: 8,
- zoomControl: true,
- rotateControl : false,
- mapTypeControl: true,
- streetViewControl: false,
- });
- // Creamos el marcador
- var marker = new google.maps.Marker({
- position: {lat: 43.2686751, lng: -2.9340005},
- draggable: true
- });
- // Le asignamos el mapa a los marcadores.
- marker.setMap(map);
- // creamos el objeto geodecoder
- var geocoder = new google.maps.Geocoder();
-// le asignamos una funcion al eventos dragend del marcado
- google.maps.event.addListener(marker, 'dragend', function() {
- geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
- if (status == google.maps.GeocoderStatus.OK) {
- var address=results[0]['formatted_address'];
- alert(address);
- }
- });
-});
-}
-*/
+
 let map
 let infowindow
+let resultPrint = ''
+let RestaurantData =''
+let CafeData = ''
+let BarData = ''
+let BakeryData = ''
 
 const initMap =()=>{
   navigator.geolocation.getCurrentPosition(function (pos) {
@@ -77,6 +52,9 @@ const initMap =()=>{
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           crearMarcador(results[i])
+          RestaurantData = results
+         console.log(RestaurantData)
+         ResultPrint(results[i])
         }
       }
     })
@@ -84,6 +62,9 @@ const initMap =()=>{
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           crearMarcador(results[i])
+          CafeData = results
+         console.log(CafeData)
+         ResultPrint(results[i])
         }
       }
     })
@@ -91,6 +72,9 @@ const initMap =()=>{
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           crearMarcador(results[i])
+          BakeryData = results
+         console.log(BakeryData)
+         ResultPrint(results[i])
         }
       }
     })
@@ -98,6 +82,9 @@ const initMap =()=>{
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           crearMarcador(results[i])
+          BarData = results
+         console.log(BarData)
+         ResultPrint(results[i])
         }
       }
     })
@@ -117,66 +104,42 @@ const crearMarcador =(place)=> {
     infowindow.open(map, this)
   })
 }
-var input = document.getElementById('pac-input');
-
-var autocomplete = new google.maps.places.Autocomplete(input);
-autocomplete.bindTo('bounds', map);
-
-map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-/*function initMap() {
-       var map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: -99.166953, lng: 19.402908},
-         zoom: 13
-       });
-
-       var input = document.getElementById('pac-input');
-
-       var autocomplete = new google.maps.places.Autocomplete(input);
-       autocomplete.bindTo('bounds', map);
-
-       map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-       var infowindow = new google.maps.InfoWindow();
-       var infowindowContent = document.getElementById('infowindow-content');
-       infowindow.setContent(infowindowContent);
-       var marker = new google.maps.Marker({
-         map: map
-       });
-       marker.addListener('click', function() {
-         infowindow.open(map, marker);
-       });
-
-       autocomplete.addListener('place_changed', function() {
-         infowindow.close();
-         var place = autocomplete.getPlace();
-         if (!place.geometry) {
-           return;
-         }
-
-         if (place.geometry.viewport) {
-           map.fitBounds(place.geometry.viewport);
-         } else {
-           map.setCenter(place.geometry.location);
-           map.setZoom(17);
-         }
-
-         // Set the position of the marker using the place ID and location.
-         marker.setPlace({
-           placeId: place.place_id,
-           location: place.geometry.location
-         });
-         marker.setVisible(true);
-
-         infowindowContent.children['place-name'].textContent = place.name;
-         infowindowContent.children['place-id'].textContent = place.place_id;
-         infowindowContent.children['place-address'].textContent =
-             place.formatted_address;
-         infowindow.open(map, marker);
-       });
-     }
-*/
-
-  const initialize = () => {
-    console.log("holi");
-  }
+ResultPrint = (getprint) => {
+  resultPrint += `
+  <div class="card">
+<div class="card-header">
+<h4>${getprint.name}</h4>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"> Puntaje: </h5>
+    <p class="card-text">
+     ${getprint.rating}
+    </p>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+     Mas detalles ...
+    </button>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">${getprint.name}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      Dirección: ${getprint.vicinity},
+      Puntaje: ${getprint.rating}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+    </div>
+  </div>
+</div>`
+dataRestaurant.innerHTML= resultPrint
+}
